@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec ./test",
-    "tdd": "npm run test -- -w"
+    "tdd": "npm run test -- -w",
+    "preversion": "npm test",
+    "postversion": "npm publish && git push origin master --tags"
   },
   "author": "@k88hudson",
   "license": "MPL-2.0",

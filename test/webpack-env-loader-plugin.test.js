@@ -72,7 +72,7 @@ describe("test", () => {
       done();
     });
   });
-  it("should load config file pased on env", done => {
+  it("should load config file based on env", done => {
     createConfigFile("config.default.json", {foo: "default"});
     createConfigFile("config.production.json", {foo: "bar"});
     createSourceFile("console.log(__CONFIG__.foo)");
@@ -89,6 +89,8 @@ describe("test", () => {
     });
   });
   it("should add react env", done => {
+    createConfigFile("config.default.json", {foo: "default"});
+    createConfigFile("config.development.json", {foo: "dev"});
     createSourceFile("console.log(process.env.NODE_ENV)");
     const config = {
       path: FIXTURES_PATH,

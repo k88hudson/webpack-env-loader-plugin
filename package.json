@@ -1,0 +1,24 @@
+{
+  "name": "webpack-env-loader-plugin",
+  "version": "0.0.0",
+  "description": "A plugin for loading configuration into webpack based on environment",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec ./test",
+    "tdd": "npm run test -- -w"
+  },
+  "author": "@k88hudson",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-fs": "^0.1.0",
+    "fs-extra": "^0.26.5"
+  },
+  "dependencies": {
+    "colors": "^1.1.2",
+    "strip-json-comments": "^2.0.1",
+    "webpack": "^1.12.14",
+    "yaml": "^0.3.0",
+    "yamljs": "^0.2.6"
+  }
+}

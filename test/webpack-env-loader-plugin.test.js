@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs-extra");
 
 const webpack = require("webpack");
+const yaml = require("yamljs");
 const EnvPlugin = require("../lib/webpack-env-loader-plugin");
 
 const FIXTURES_PATH = path.join(__dirname, "fixtures");
@@ -14,7 +15,11 @@ const OUTPUT_FILE_PATH = path.join(OUTPUT_PATH, OUTPUT_FILENAME);
 const ENTRY_FILE_PATH = path.join(FIXTURES_PATH, "basic.js");
 
 function createConfigFile(name, config) {
-  fs.outputJsonSync(path.join(FIXTURES_PATH, name), config);
+  if (path.extname(name) === ".yml") {
+    fs.outputFileSync(path.join(FIXTURES_PATH, name), yaml.stringify(config, 2));
+  } else {
+    fs.outputJsonSync(path.join(FIXTURES_PATH, name), config);
+  }
 }
 
 function createSourceFile(text) {
@@ -44,6 +49,20 @@ describe("test", () => {
     createConfigFile("config.default.json", {foo: "default"});
     createSourceFile("console.log(__CONFIG__.foo)");
     const config = {
+      path: FIXTURES_PATH,
+      log: false
+    };
+    runWebpack({}, config, function (err) {
+      if (err) return done(err);
+      assert.fileContentMatch(OUTPUT_FILE_PATH, /console\.log\(\(\"default\"\)\)/);
+      done();
+    });
+  });
+  it("should load yml", done => {
+    createConfigFile("config.default.yml", {foo: "default"});
+    createSourceFile("console.log(__CONFIG__.foo)");
+    const config = {
+      filePattern: "config.{env}.yml",
       path: FIXTURES_PATH,
       log: false
     };

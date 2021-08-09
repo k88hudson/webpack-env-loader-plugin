@@ -9,6 +9,10 @@
     "preversion": "npm test",
     "postversion": "npm publish && git push origin master --tags"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/k88hudson/webpack-env-loader-plugin.git"
+  },
   "author": "@k88hudson",
   "license": "MPL-2.0",
   "devDependencies": {
